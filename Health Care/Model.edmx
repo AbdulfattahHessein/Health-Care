@@ -1,0 +1,2217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HelthCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="ClinicID" />
+          </Key>
+          <Property Name="ClinicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicNumber" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BirthDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Specialization" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Doctor_Clinic_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="ClinicID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="ClinicID" Type="int" Nullable="false" />
+          <Property Name="ShiftID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor_Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NationalIDNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ContactID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Expenses_Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expenses_Coast" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Nurse">
+          <Key>
+            <PropertyRef Name="NurseID" />
+          </Key>
+          <Property Name="NurseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nurse_Clinic_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="ClinicID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="NurseID" Type="int" Nullable="false" />
+          <Property Name="ClinicID" Type="int" Nullable="false" />
+          <Property Name="ShiftID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReservationID" />
+          </Key>
+          <Property Name="ReservationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="SecretaryID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="Appointment" Type="date" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Secretary">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+          </Key>
+          <Property Name="SecretaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Secretary_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="SecretaryID" Type="int" Nullable="false" />
+          <Property Name="ShiftID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RelatedServiceID" Type="int" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="ShiftID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.DoctorShifts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DoctorShifts">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="bigint" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="12" />
+          <Property Name="Shift Name" Type="varchar" MaxLength="20" />
+          <Property Name="StartTime" Type="time" Precision="0" />
+          <Property Name="EndTime" Type="time" Precision="0" />
+          <Property Name="ClinicNumber" Type="int" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="ShiftID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.EmployeesInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeesInfo">
+          <Key>
+            <PropertyRef Name="ContactID" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="ContactID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.NurseShifts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NurseShifts">
+          <Key>
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="bigint" />
+          <Property Name="NurseID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="12" />
+          <Property Name="Shift Name" Type="varchar" MaxLength="20" />
+          <Property Name="StartTime" Type="time" Precision="0" />
+          <Property Name="EndTime" Type="time" Precision="0" />
+          <Property Name="ClinicNumber" Type="int" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="ShiftID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.SecretaryShifts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SecretaryShifts">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="bigint" />
+          <Property Name="SecretaryID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="Day" Type="varchar" MaxLength="12" />
+          <Property Name="Shift Name" Type="varchar" MaxLength="20" />
+          <Property Name="StartTime" Type="time" Precision="0" />
+          <Property Name="EndTime" Type="time" Precision="0" />
+          <Property Name="ShiftID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowAdminAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowAdminAccounts">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowAdmins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowAdmins">
+          <Key>
+            <PropertyRef Name="AdminID" />
+            <PropertyRef Name="Full Name" />
+          </Key>
+          <Property Name="AdminID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowAllAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowAllAccounts">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowDoctorAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowDoctorAccounts">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowDoctors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowDoctors">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="Full Name" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="Specialization" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowNurses' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowNurses">
+          <Key>
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="Full Name" />
+          </Key>
+          <Property Name="NurseID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowSecretaries' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowSecretaries">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="Full Name" />
+          </Key>
+          <Property Name="SecretaryID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowSecretaryAccounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowSecretaryAccounts">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Full Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowServiceDoctors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowServiceDoctors">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="62" Nullable="false" />
+          <Property Name="Specialization" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E:\PROJECTS\BACK-END\HEALTHCARELASTONE\HEALTH CARE\HEALTH CARE\HELTHCARE.MDF.dbo.ShowServices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowServices">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="Service Name" />
+            <PropertyRef Name="Service Price" />
+          </Key>
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="Service Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Service Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RelatedServiceID" Type="int" />
+          <Property Name="Related Service Name" Type="varchar" MaxLength="30" />
+          <Property Name="Related Service Price" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_Admin_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Admin_UserLogin_LoginID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clinic_Department_DepartmentID">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Clinic">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_ClinicID">
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ClinicID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_DoctorID">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocServ_Doctor_DoctorID">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocServ_Service_ServiceID">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_UserLogin_LoginID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Contact_ContactID">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ContactID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_ClinicID">
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ClinicID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_NurseID">
+          <End Role="Nurse" Type="Self.Nurse" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nurse">
+              <PropertyRef Name="NurseID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="NurseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nurse_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Nurse" Type="Self.Nurse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Nurse">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_Contact_ContactID">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ContactID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_DoctorServices_DoctorID">
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor_Services">
+              <PropertyRef Name="ServiceID" />
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ServiceID" />
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Patient_PatientID">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Secertary_SecertaryID">
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secretary">
+              <PropertyRef Name="SecretaryID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="SecretaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secertary_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Secretary">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_Shifts_SecretaryID">
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="1" />
+          <End Role="Secretary_Shifts" Type="Self.Secretary_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secretary">
+              <PropertyRef Name="SecretaryID" />
+            </Principal>
+            <Dependent Role="Secretary_Shifts">
+              <PropertyRef Name="SecretaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_Shifts_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Secretary_Shifts" Type="Self.Secretary_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Secretary_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_UserLogin">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Secretary">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_RelatedServiceID_ServiceID">
+          <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+          <End Role="Service1" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Service1">
+              <PropertyRef Name="RelatedServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="HelthCareModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clinic" EntityType="Self.Clinic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor_Clinic_Shifts" EntityType="Self.Doctor_Clinic_Shifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor_Services" EntityType="Self.Doctor_Services" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nurse" EntityType="Self.Nurse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nurse_Clinic_Shifts" EntityType="Self.Nurse_Clinic_Shifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Secretary" EntityType="Self.Secretary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Secretary_Shifts" EntityType="Self.Secretary_Shifts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorShifts" EntityType="Self.DoctorShifts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DoctorShifts].[RowNum] AS [RowNum], 
+    [DoctorShifts].[DoctorID] AS [DoctorID], 
+    [DoctorShifts].[Name] AS [Name], 
+    [DoctorShifts].[Day] AS [Day], 
+    [DoctorShifts].[Shift Name] AS [Shift Name], 
+    [DoctorShifts].[StartTime] AS [StartTime], 
+    [DoctorShifts].[EndTime] AS [EndTime], 
+    [DoctorShifts].[ClinicNumber] AS [ClinicNumber], 
+    [DoctorShifts].[ClinicID] AS [ClinicID], 
+    [DoctorShifts].[ShiftID] AS [ShiftID]
+    FROM [dbo].[DoctorShifts] AS [DoctorShifts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeesInfo" EntityType="Self.EmployeesInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeesInfo].[ContactID] AS [ContactID], 
+    [EmployeesInfo].[EmployeeID] AS [EmployeeID], 
+    [EmployeesInfo].[FirstName] AS [FirstName], 
+    [EmployeesInfo].[LastName] AS [LastName], 
+    [EmployeesInfo].[Title] AS [Title]
+    FROM [dbo].[EmployeesInfo] AS [EmployeesInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NurseShifts" EntityType="Self.NurseShifts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NurseShifts].[RowNum] AS [RowNum], 
+    [NurseShifts].[NurseID] AS [NurseID], 
+    [NurseShifts].[Name] AS [Name], 
+    [NurseShifts].[Day] AS [Day], 
+    [NurseShifts].[Shift Name] AS [Shift Name], 
+    [NurseShifts].[StartTime] AS [StartTime], 
+    [NurseShifts].[EndTime] AS [EndTime], 
+    [NurseShifts].[ClinicNumber] AS [ClinicNumber], 
+    [NurseShifts].[ClinicID] AS [ClinicID], 
+    [NurseShifts].[ShiftID] AS [ShiftID]
+    FROM [dbo].[NurseShifts] AS [NurseShifts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SecretaryShifts" EntityType="Self.SecretaryShifts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SecretaryShifts].[RowNum] AS [RowNum], 
+    [SecretaryShifts].[SecretaryID] AS [SecretaryID], 
+    [SecretaryShifts].[Name] AS [Name], 
+    [SecretaryShifts].[Day] AS [Day], 
+    [SecretaryShifts].[Shift Name] AS [Shift Name], 
+    [SecretaryShifts].[StartTime] AS [StartTime], 
+    [SecretaryShifts].[EndTime] AS [EndTime], 
+    [SecretaryShifts].[ShiftID] AS [ShiftID]
+    FROM [dbo].[SecretaryShifts] AS [SecretaryShifts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowAdminAccounts" EntityType="Self.ShowAdminAccounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowAdminAccounts].[EmployeeID] AS [EmployeeID], 
+    [ShowAdminAccounts].[Full Name] AS [Full Name], 
+    [ShowAdminAccounts].[AccountType] AS [AccountType], 
+    [ShowAdminAccounts].[LoginID] AS [LoginID], 
+    [ShowAdminAccounts].[Password] AS [Password]
+    FROM [dbo].[ShowAdminAccounts] AS [ShowAdminAccounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowAdmins" EntityType="Self.ShowAdmins" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowAdmins].[AdminID] AS [AdminID], 
+    [ShowAdmins].[Full Name] AS [Full Name]
+    FROM [dbo].[ShowAdmins] AS [ShowAdmins]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowAllAccounts" EntityType="Self.ShowAllAccounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowAllAccounts].[EmployeeID] AS [EmployeeID], 
+    [ShowAllAccounts].[Full Name] AS [Full Name], 
+    [ShowAllAccounts].[AccountType] AS [AccountType], 
+    [ShowAllAccounts].[LoginID] AS [LoginID], 
+    [ShowAllAccounts].[Password] AS [Password]
+    FROM [dbo].[ShowAllAccounts] AS [ShowAllAccounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowDoctorAccounts" EntityType="Self.ShowDoctorAccounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowDoctorAccounts].[EmployeeID] AS [EmployeeID], 
+    [ShowDoctorAccounts].[Full Name] AS [Full Name], 
+    [ShowDoctorAccounts].[AccountType] AS [AccountType], 
+    [ShowDoctorAccounts].[LoginID] AS [LoginID], 
+    [ShowDoctorAccounts].[Password] AS [Password]
+    FROM [dbo].[ShowDoctorAccounts] AS [ShowDoctorAccounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowDoctors" EntityType="Self.ShowDoctors" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowDoctors].[DoctorID] AS [DoctorID], 
+    [ShowDoctors].[Full Name] AS [Full Name], 
+    [ShowDoctors].[Specialization] AS [Specialization]
+    FROM [dbo].[ShowDoctors] AS [ShowDoctors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowNurses" EntityType="Self.ShowNurses" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowNurses].[NurseID] AS [NurseID], 
+    [ShowNurses].[Full Name] AS [Full Name]
+    FROM [dbo].[ShowNurses] AS [ShowNurses]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowSecretaries" EntityType="Self.ShowSecretaries" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowSecretaries].[SecretaryID] AS [SecretaryID], 
+    [ShowSecretaries].[Full Name] AS [Full Name]
+    FROM [dbo].[ShowSecretaries] AS [ShowSecretaries]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowSecretaryAccounts" EntityType="Self.ShowSecretaryAccounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowSecretaryAccounts].[EmployeeID] AS [EmployeeID], 
+    [ShowSecretaryAccounts].[Full Name] AS [Full Name], 
+    [ShowSecretaryAccounts].[AccountType] AS [AccountType], 
+    [ShowSecretaryAccounts].[LoginID] AS [LoginID], 
+    [ShowSecretaryAccounts].[Password] AS [Password]
+    FROM [dbo].[ShowSecretaryAccounts] AS [ShowSecretaryAccounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowServiceDoctors" EntityType="Self.ShowServiceDoctors" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowServiceDoctors].[DoctorID] AS [DoctorID], 
+    [ShowServiceDoctors].[ServiceID] AS [ServiceID], 
+    [ShowServiceDoctors].[Name] AS [Name], 
+    [ShowServiceDoctors].[Specialization] AS [Specialization]
+    FROM [dbo].[ShowServiceDoctors] AS [ShowServiceDoctors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowServices" EntityType="Self.ShowServices" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowServices].[ServiceID] AS [ServiceID], 
+    [ShowServices].[Service Name] AS [Service Name], 
+    [ShowServices].[Service Price] AS [Service Price], 
+    [ShowServices].[RelatedServiceID] AS [RelatedServiceID], 
+    [ShowServices].[Related Service Name] AS [Related Service Name], 
+    [ShowServices].[Related Service Price] AS [Related Service Price]
+    FROM [dbo].[ShowServices] AS [ShowServices]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Admin_Employee_EmployeeID" Association="Self.FK_Admin_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Admin" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Admin_UserLogin_LoginID" Association="Self.FK_Admin_UserLogin_LoginID">
+            <End Role="UserLogin" EntitySet="UserLogin" />
+            <End Role="Admin" EntitySet="Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clinic_Department_DepartmentID" Association="Self.FK_Clinic_Department_DepartmentID">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Clinic" EntitySet="Clinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_ClinicID" Association="Self.FK_DCF_ClinicID">
+            <End Role="Clinic" EntitySet="Clinic" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_DoctorID" Association="Self.FK_DCF_DoctorID">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_ShiftID" Association="Self.FK_DCF_ShiftID">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocServ_Doctor_DoctorID" Association="Self.FK_DocServ_Doctor_DoctorID">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocServ_Service_ServiceID" Association="Self.FK_DocServ_Service_ServiceID">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Employee_EmployeeID" Association="Self.FK_Doctor_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_UserLogin_LoginID" Association="Self.FK_Doctor_UserLogin_LoginID">
+            <End Role="UserLogin" EntitySet="UserLogin" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Contact_ContactID" Association="Self.FK_Employee_Contact_ContactID">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_ClinicID" Association="Self.FK_NCF_ClinicID">
+            <End Role="Clinic" EntitySet="Clinic" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_NurseID" Association="Self.FK_NCF_NurseID">
+            <End Role="Nurse" EntitySet="Nurse" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_ShiftID" Association="Self.FK_NCF_ShiftID">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nurse_Employee_EmployeeID" Association="Self.FK_Nurse_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Nurse" EntitySet="Nurse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_Contact_ContactID" Association="Self.FK_Patient_Contact_ContactID">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_DoctorServices_DoctorID" Association="Self.FK_Reservation_DoctorServices_DoctorID">
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Patient_PatientID" Association="Self.FK_Reservation_Patient_PatientID">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Secertary_SecertaryID" Association="Self.FK_Reservation_Secertary_SecertaryID">
+            <End Role="Secretary" EntitySet="Secretary" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secertary_Employee_EmployeeID" Association="Self.FK_Secertary_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Secretary" EntitySet="Secretary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_Shifts_SecretaryID" Association="Self.FK_Secretary_Shifts_SecretaryID">
+            <End Role="Secretary" EntitySet="Secretary" />
+            <End Role="Secretary_Shifts" EntitySet="Secretary_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_Shifts_ShiftID" Association="Self.FK_Secretary_Shifts_ShiftID">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Secretary_Shifts" EntitySet="Secretary_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_UserLogin" Association="Self.FK_Secretary_UserLogin">
+            <End Role="UserLogin" EntitySet="UserLogin" />
+            <End Role="Secretary" EntitySet="Secretary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_RelatedServiceID_ServiceID" Association="Self.FK_Service_RelatedServiceID_ServiceID">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="Service1" EntitySet="Service" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HelthCareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Admin_Employee_EmployeeID" FromRole="Admin" ToRole="Employee" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_Admin_UserLogin_LoginID" FromRole="Admin" ToRole="UserLogin" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="ClinicID" />
+          </Key>
+          <Property Name="ClinicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicNumber" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Clinic_Department_DepartmentID" FromRole="Clinic" ToRole="Department" />
+          <NavigationProperty Name="Doctor_Clinic_Shifts" Relationship="Self.FK_DCF_ClinicID" FromRole="Clinic" ToRole="Doctor_Clinic_Shifts" />
+          <NavigationProperty Name="Nurse_Clinic_Shifts" Relationship="Self.FK_NCF_ClinicID" FromRole="Clinic" ToRole="Nurse_Clinic_Shifts" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactID" />
+          </Key>
+          <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Contact_ContactID" FromRole="Contact" ToRole="Employee" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_Patient_Contact_ContactID" FromRole="Contact" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clinics" Relationship="Self.FK_Clinic_Department_DepartmentID" FromRole="Department" ToRole="Clinic" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Specialization" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Doctor_Clinic_Shifts" Relationship="Self.FK_DCF_DoctorID" FromRole="Doctor" ToRole="Doctor_Clinic_Shifts" />
+          <NavigationProperty Name="Doctor_Services" Relationship="Self.FK_DocServ_Doctor_DoctorID" FromRole="Doctor" ToRole="Doctor_Services" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Doctor_Employee_EmployeeID" FromRole="Doctor" ToRole="Employee" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_Doctor_UserLogin_LoginID" FromRole="Doctor" ToRole="UserLogin" />
+        </EntityType>
+        <EntityType Name="Doctor_Clinic_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="ClinicID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="ClinicID" Type="Int32" Nullable="false" />
+          <Property Name="ShiftID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_DCF_ClinicID" FromRole="Doctor_Clinic_Shifts" ToRole="Clinic" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_DCF_DoctorID" FromRole="Doctor_Clinic_Shifts" ToRole="Doctor" />
+          <NavigationProperty Name="Shift" Relationship="Self.FK_DCF_ShiftID" FromRole="Doctor_Clinic_Shifts" ToRole="Shift" />
+        </EntityType>
+        <EntityType Name="Doctor_Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_DocServ_Doctor_DoctorID" FromRole="Doctor_Services" ToRole="Doctor" />
+          <NavigationProperty Name="Service" Relationship="Self.FK_DocServ_Service_ServiceID" FromRole="Doctor_Services" ToRole="Service" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_DoctorServices_DoctorID" FromRole="Doctor_Services" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NationalIDNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Salary" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK_Admin_Employee_EmployeeID" FromRole="Employee" ToRole="Admin" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_Employee_Contact_ContactID" FromRole="Employee" ToRole="Contact" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_Employee_EmployeeID" FromRole="Employee" ToRole="Doctor" />
+          <NavigationProperty Name="Nurses" Relationship="Self.FK_Nurse_Employee_EmployeeID" FromRole="Employee" ToRole="Nurse" />
+          <NavigationProperty Name="Secretaries" Relationship="Self.FK_Secertary_Employee_EmployeeID" FromRole="Employee" ToRole="Secretary" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Expenses_ID" />
+          </Key>
+          <Property Name="Expenses_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Expenses_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Expenses_Coast" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Nurse">
+          <Key>
+            <PropertyRef Name="NurseID" />
+          </Key>
+          <Property Name="NurseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Nurse_Employee_EmployeeID" FromRole="Nurse" ToRole="Employee" />
+          <NavigationProperty Name="Nurse_Clinic_Shifts" Relationship="Self.FK_NCF_NurseID" FromRole="Nurse" ToRole="Nurse_Clinic_Shifts" />
+        </EntityType>
+        <EntityType Name="Nurse_Clinic_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="ClinicID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NurseID" Type="Int32" Nullable="false" />
+          <Property Name="ClinicID" Type="Int32" Nullable="false" />
+          <Property Name="ShiftID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_NCF_ClinicID" FromRole="Nurse_Clinic_Shifts" ToRole="Clinic" />
+          <NavigationProperty Name="Nurse" Relationship="Self.FK_NCF_NurseID" FromRole="Nurse_Clinic_Shifts" ToRole="Nurse" />
+          <NavigationProperty Name="Shift" Relationship="Self.FK_NCF_ShiftID" FromRole="Nurse_Clinic_Shifts" ToRole="Shift" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_Patient_Contact_ContactID" FromRole="Patient" ToRole="Contact" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Patient_PatientID" FromRole="Patient" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReservationID" />
+          </Key>
+          <Property Name="ReservationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="SecretaryID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="Appointment" Type="DateTime" Precision="0" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Doctor_Services" Relationship="Self.FK_Reservation_DoctorServices_DoctorID" FromRole="Reservation" ToRole="Doctor_Services" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Reservation_Patient_PatientID" FromRole="Reservation" ToRole="Patient" />
+          <NavigationProperty Name="Secretary" Relationship="Self.FK_Reservation_Secertary_SecertaryID" FromRole="Reservation" ToRole="Secretary" />
+        </EntityType>
+        <EntityType Name="Secretary">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+          </Key>
+          <Property Name="SecretaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Secertary_Employee_EmployeeID" FromRole="Secretary" ToRole="Employee" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Secertary_SecertaryID" FromRole="Secretary" ToRole="Reservation" />
+          <NavigationProperty Name="Secretary_Shifts" Relationship="Self.FK_Secretary_Shifts_SecretaryID" FromRole="Secretary" ToRole="Secretary_Shifts" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_Secretary_UserLogin" FromRole="Secretary" ToRole="UserLogin" />
+        </EntityType>
+        <EntityType Name="Secretary_Shifts">
+          <Key>
+            <PropertyRef Name="Day" />
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecretaryID" Type="Int32" Nullable="false" />
+          <Property Name="ShiftID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Secretary" Relationship="Self.FK_Secretary_Shifts_SecretaryID" FromRole="Secretary_Shifts" ToRole="Secretary" />
+          <NavigationProperty Name="Shift" Relationship="Self.FK_Secretary_Shifts_ShiftID" FromRole="Secretary_Shifts" ToRole="Shift" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RelatedServiceID" Type="Int32" />
+          <NavigationProperty Name="Doctor_Services" Relationship="Self.FK_DocServ_Service_ServiceID" FromRole="Service" ToRole="Doctor_Services" />
+          <NavigationProperty Name="Service1" Relationship="Self.FK_Service_RelatedServiceID_ServiceID" FromRole="Service" ToRole="Service1" />
+          <NavigationProperty Name="Service2" Relationship="Self.FK_Service_RelatedServiceID_ServiceID" FromRole="Service1" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="ShiftID" />
+          </Key>
+          <Property Name="ShiftID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Doctor_Clinic_Shifts" Relationship="Self.FK_DCF_ShiftID" FromRole="Shift" ToRole="Doctor_Clinic_Shifts" />
+          <NavigationProperty Name="Nurse_Clinic_Shifts" Relationship="Self.FK_NCF_ShiftID" FromRole="Shift" ToRole="Nurse_Clinic_Shifts" />
+          <NavigationProperty Name="Secretary_Shifts" Relationship="Self.FK_Secretary_Shifts_ShiftID" FromRole="Shift" ToRole="Secretary_Shifts" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK_Admin_UserLogin_LoginID" FromRole="UserLogin" ToRole="Admin" />
+          <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_UserLogin_LoginID" FromRole="UserLogin" ToRole="Doctor" />
+          <NavigationProperty Name="Secretaries" Relationship="Self.FK_Secretary_UserLogin" FromRole="UserLogin" ToRole="Secretary" />
+        </EntityType>
+        <EntityType Name="DoctorShift">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="Int64" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Shift_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartTime" Type="Time" Precision="0" />
+          <Property Name="EndTime" Type="Time" Precision="0" />
+          <Property Name="ClinicNumber" Type="Int32" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="ShiftID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmployeesInfo">
+          <Key>
+            <PropertyRef Name="ContactID" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="ContactID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NurseShift">
+          <Key>
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="Int64" />
+          <Property Name="NurseID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Shift_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartTime" Type="Time" Precision="0" />
+          <Property Name="EndTime" Type="Time" Precision="0" />
+          <Property Name="ClinicNumber" Type="Int32" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="ShiftID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SecretaryShift">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="RowNum" Type="Int64" />
+          <Property Name="SecretaryID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Shift_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartTime" Type="Time" Precision="0" />
+          <Property Name="EndTime" Type="Time" Precision="0" />
+          <Property Name="ShiftID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ShowAdminAccount">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full_Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowAdmin">
+          <Key>
+            <PropertyRef Name="AdminID" />
+            <PropertyRef Name="Full_Name" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowAllAccount">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full_Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowDoctorAccount">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full_Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="Full_Name" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Specialization" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowNurs">
+          <Key>
+            <PropertyRef Name="NurseID" />
+            <PropertyRef Name="Full_Name" />
+          </Key>
+          <Property Name="NurseID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowSecretary">
+          <Key>
+            <PropertyRef Name="SecretaryID" />
+            <PropertyRef Name="Full_Name" />
+          </Key>
+          <Property Name="SecretaryID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowSecretaryAccount">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="Full_Name" />
+            <PropertyRef Name="AccountType" />
+            <PropertyRef Name="LoginID" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Full_Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowServiceDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Specialization" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="62" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Specialization" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowService">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="Service_Name" />
+            <PropertyRef Name="Service_Price" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="Service_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Service_Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RelatedServiceID" Type="Int32" />
+          <Property Name="Related_Service_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Related_Service_Price" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_Admin_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Admin_UserLogin_LoginID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Admin">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clinic_Department_DepartmentID">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Clinic">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_ClinicID">
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ClinicID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_ClinicID">
+          <End Role="Clinic" Type="Self.Clinic" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ClinicID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Contact_ContactID">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ContactID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_Contact_ContactID">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ContactID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_DoctorID">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocServ_Doctor_DoctorID">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_UserLogin_LoginID">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DCF_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Doctor_Clinic_Shifts" Type="Self.Doctor_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Doctor_Clinic_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocServ_Service_ServiceID">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Doctor_Services">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_DoctorServices_DoctorID">
+          <End Role="Doctor_Services" Type="Self.Doctor_Services" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor_Services">
+              <PropertyRef Name="ServiceID" />
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ServiceID" />
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nurse_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Nurse" Type="Self.Nurse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Nurse">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secertary_Employee_EmployeeID">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Secretary">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_NurseID">
+          <End Role="Nurse" Type="Self.Nurse" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nurse">
+              <PropertyRef Name="NurseID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="NurseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NCF_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Nurse_Clinic_Shifts" Type="Self.Nurse_Clinic_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Nurse_Clinic_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Patient_PatientID">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Secertary_SecertaryID">
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secretary">
+              <PropertyRef Name="SecretaryID" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="SecretaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_Shifts_SecretaryID">
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="1" />
+          <End Role="Secretary_Shifts" Type="Self.Secretary_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Secretary">
+              <PropertyRef Name="SecretaryID" />
+            </Principal>
+            <Dependent Role="Secretary_Shifts">
+              <PropertyRef Name="SecretaryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_UserLogin">
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="0..1" />
+          <End Role="Secretary" Type="Self.Secretary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLogin">
+              <PropertyRef Name="LoginID" />
+            </Principal>
+            <Dependent Role="Secretary">
+              <PropertyRef Name="LoginID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Secretary_Shifts_ShiftID">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Secretary_Shifts" Type="Self.Secretary_Shifts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="ShiftID" />
+            </Principal>
+            <Dependent Role="Secretary_Shifts">
+              <PropertyRef Name="ShiftID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_RelatedServiceID_ServiceID">
+          <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+          <End Role="Service1" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="Service1">
+              <PropertyRef Name="RelatedServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HelthCareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Clinics" EntityType="Self.Clinic" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Doctor_Clinic_Shifts" EntityType="Self.Doctor_Clinic_Shifts" />
+          <EntitySet Name="Doctor_Services" EntityType="Self.Doctor_Services" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Expenses" EntityType="Self.Expens" />
+          <EntitySet Name="Nurses" EntityType="Self.Nurse" />
+          <EntitySet Name="Nurse_Clinic_Shifts" EntityType="Self.Nurse_Clinic_Shifts" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="Secretaries" EntityType="Self.Secretary" />
+          <EntitySet Name="Secretary_Shifts" EntityType="Self.Secretary_Shifts" />
+          <EntitySet Name="Services" EntityType="Self.Service" />
+          <EntitySet Name="Shifts" EntityType="Self.Shift" />
+          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
+          <EntitySet Name="DoctorShifts" EntityType="Self.DoctorShift" />
+          <EntitySet Name="EmployeesInfoes" EntityType="Self.EmployeesInfo" />
+          <EntitySet Name="NurseShifts" EntityType="Self.NurseShift" />
+          <EntitySet Name="SecretaryShifts" EntityType="Self.SecretaryShift" />
+          <EntitySet Name="ShowAdminAccounts" EntityType="Self.ShowAdminAccount" />
+          <EntitySet Name="ShowAdmins" EntityType="Self.ShowAdmin" />
+          <EntitySet Name="ShowAllAccounts" EntityType="Self.ShowAllAccount" />
+          <EntitySet Name="ShowDoctorAccounts" EntityType="Self.ShowDoctorAccount" />
+          <EntitySet Name="ShowDoctors" EntityType="Self.ShowDoctor" />
+          <EntitySet Name="ShowNurses" EntityType="Self.ShowNurs" />
+          <EntitySet Name="ShowSecretaries" EntityType="Self.ShowSecretary" />
+          <EntitySet Name="ShowSecretaryAccounts" EntityType="Self.ShowSecretaryAccount" />
+          <EntitySet Name="ShowServiceDoctors" EntityType="Self.ShowServiceDoctor" />
+          <EntitySet Name="ShowServices" EntityType="Self.ShowService" />
+          <AssociationSet Name="FK_Admin_Employee_EmployeeID" Association="Self.FK_Admin_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Admin_UserLogin_LoginID" Association="Self.FK_Admin_UserLogin_LoginID">
+            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="Admin" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clinic_Department_DepartmentID" Association="Self.FK_Clinic_Department_DepartmentID">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Clinic" EntitySet="Clinics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_ClinicID" Association="Self.FK_DCF_ClinicID">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_ClinicID" Association="Self.FK_NCF_ClinicID">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Contact_ContactID" Association="Self.FK_Employee_Contact_ContactID">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_Contact_ContactID" Association="Self.FK_Patient_Contact_ContactID">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_DoctorID" Association="Self.FK_DCF_DoctorID">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocServ_Doctor_DoctorID" Association="Self.FK_DocServ_Doctor_DoctorID">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_Employee_EmployeeID" Association="Self.FK_Doctor_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_UserLogin_LoginID" Association="Self.FK_Doctor_UserLogin_LoginID">
+            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DCF_ShiftID" Association="Self.FK_DCF_ShiftID">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="Doctor_Clinic_Shifts" EntitySet="Doctor_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocServ_Service_ServiceID" Association="Self.FK_DocServ_Service_ServiceID">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_DoctorServices_DoctorID" Association="Self.FK_Reservation_DoctorServices_DoctorID">
+            <End Role="Doctor_Services" EntitySet="Doctor_Services" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nurse_Employee_EmployeeID" Association="Self.FK_Nurse_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Nurse" EntitySet="Nurses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secertary_Employee_EmployeeID" Association="Self.FK_Secertary_Employee_EmployeeID">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Secretary" EntitySet="Secretaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_NurseID" Association="Self.FK_NCF_NurseID">
+            <End Role="Nurse" EntitySet="Nurses" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NCF_ShiftID" Association="Self.FK_NCF_ShiftID">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="Nurse_Clinic_Shifts" EntitySet="Nurse_Clinic_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Patient_PatientID" Association="Self.FK_Reservation_Patient_PatientID">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Secertary_SecertaryID" Association="Self.FK_Reservation_Secertary_SecertaryID">
+            <End Role="Secretary" EntitySet="Secretaries" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_Shifts_SecretaryID" Association="Self.FK_Secretary_Shifts_SecretaryID">
+            <End Role="Secretary" EntitySet="Secretaries" />
+            <End Role="Secretary_Shifts" EntitySet="Secretary_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_UserLogin" Association="Self.FK_Secretary_UserLogin">
+            <End Role="UserLogin" EntitySet="UserLogins" />
+            <End Role="Secretary" EntitySet="Secretaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Secretary_Shifts_ShiftID" Association="Self.FK_Secretary_Shifts_ShiftID">
+            <End Role="Shift" EntitySet="Shifts" />
+            <End Role="Secretary_Shifts" EntitySet="Secretary_Shifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_RelatedServiceID_ServiceID" Association="Self.FK_Service_RelatedServiceID_ServiceID">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="Service1" EntitySet="Services" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(HelthCareModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(HelthCareModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HelthCareModelStoreContainer" CdmEntityContainer="HelthCareEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="HelthCareModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clinics">
+            <EntityTypeMapping TypeName="HelthCareModel.Clinic">
+              <MappingFragment StoreEntitySet="Clinic">
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ClinicNumber" ColumnName="ClinicNumber" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="HelthCareModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="HelthCareModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="HelthCareModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_Clinic_Shifts">
+            <EntityTypeMapping TypeName="HelthCareModel.Doctor_Clinic_Shifts">
+              <MappingFragment StoreEntitySet="Doctor_Clinic_Shifts">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor_Services">
+            <EntityTypeMapping TypeName="HelthCareModel.Doctor_Services">
+              <MappingFragment StoreEntitySet="Doctor_Services">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="HelthCareModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="NationalIDNumber" ColumnName="NationalIDNumber" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="HelthCareModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Expenses_ID" ColumnName="Expenses_ID" />
+                <ScalarProperty Name="Expenses_Type" ColumnName="Expenses_Type" />
+                <ScalarProperty Name="Expenses_Coast" ColumnName="Expenses_Coast" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nurses">
+            <EntityTypeMapping TypeName="HelthCareModel.Nurse">
+              <MappingFragment StoreEntitySet="Nurse">
+                <ScalarProperty Name="NurseID" ColumnName="NurseID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nurse_Clinic_Shifts">
+            <EntityTypeMapping TypeName="HelthCareModel.Nurse_Clinic_Shifts">
+              <MappingFragment StoreEntitySet="Nurse_Clinic_Shifts">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="NurseID" ColumnName="NurseID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="HelthCareModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="HelthCareModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="ReservationID" ColumnName="ReservationID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="SecretaryID" ColumnName="SecretaryID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="Appointment" ColumnName="Appointment" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Secretaries">
+            <EntityTypeMapping TypeName="HelthCareModel.Secretary">
+              <MappingFragment StoreEntitySet="Secretary">
+                <ScalarProperty Name="SecretaryID" ColumnName="SecretaryID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Secretary_Shifts">
+            <EntityTypeMapping TypeName="HelthCareModel.Secretary_Shifts">
+              <MappingFragment StoreEntitySet="Secretary_Shifts">
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="SecretaryID" ColumnName="SecretaryID" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="HelthCareModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="RelatedServiceID" ColumnName="RelatedServiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shifts">
+            <EntityTypeMapping TypeName="HelthCareModel.Shift">
+              <MappingFragment StoreEntitySet="Shift">
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="HelthCareModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorShifts">
+            <EntityTypeMapping TypeName="HelthCareModel.DoctorShift">
+              <MappingFragment StoreEntitySet="DoctorShifts">
+                <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Shift_Name" ColumnName="Shift Name" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ClinicNumber" ColumnName="ClinicNumber" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeesInfoes">
+            <EntityTypeMapping TypeName="HelthCareModel.EmployeesInfo">
+              <MappingFragment StoreEntitySet="EmployeesInfo">
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NurseShifts">
+            <EntityTypeMapping TypeName="HelthCareModel.NurseShift">
+              <MappingFragment StoreEntitySet="NurseShifts">
+                <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+                <ScalarProperty Name="NurseID" ColumnName="NurseID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Shift_Name" ColumnName="Shift Name" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ClinicNumber" ColumnName="ClinicNumber" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecretaryShifts">
+            <EntityTypeMapping TypeName="HelthCareModel.SecretaryShift">
+              <MappingFragment StoreEntitySet="SecretaryShifts">
+                <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+                <ScalarProperty Name="SecretaryID" ColumnName="SecretaryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Shift_Name" ColumnName="Shift Name" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowAdminAccounts">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowAdminAccount">
+              <MappingFragment StoreEntitySet="ShowAdminAccounts">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowAdmins">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowAdmin">
+              <MappingFragment StoreEntitySet="ShowAdmins">
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowAllAccounts">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowAllAccount">
+              <MappingFragment StoreEntitySet="ShowAllAccounts">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowDoctorAccounts">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowDoctorAccount">
+              <MappingFragment StoreEntitySet="ShowDoctorAccounts">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowDoctors">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowDoctor">
+              <MappingFragment StoreEntitySet="ShowDoctors">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowNurses">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowNurs">
+              <MappingFragment StoreEntitySet="ShowNurses">
+                <ScalarProperty Name="NurseID" ColumnName="NurseID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowSecretaries">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowSecretary">
+              <MappingFragment StoreEntitySet="ShowSecretaries">
+                <ScalarProperty Name="SecretaryID" ColumnName="SecretaryID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowSecretaryAccounts">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowSecretaryAccount">
+              <MappingFragment StoreEntitySet="ShowSecretaryAccounts">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Full_Name" ColumnName="Full Name" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowServiceDoctors">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowServiceDoctor">
+              <MappingFragment StoreEntitySet="ShowServiceDoctors">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowServices">
+            <EntityTypeMapping TypeName="HelthCareModel.ShowService">
+              <MappingFragment StoreEntitySet="ShowServices">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="Service_Name" ColumnName="Service Name" />
+                <ScalarProperty Name="Service_Price" ColumnName="Service Price" />
+                <ScalarProperty Name="RelatedServiceID" ColumnName="RelatedServiceID" />
+                <ScalarProperty Name="Related_Service_Name" ColumnName="Related Service Name" />
+                <ScalarProperty Name="Related_Service_Price" ColumnName="Related Service Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="HelthCareModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="HelthCareModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="HelthCareModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="HelthCareModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HelthCareModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="HelthCareModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HelthCareModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="HelthCareModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="HelthCareModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
